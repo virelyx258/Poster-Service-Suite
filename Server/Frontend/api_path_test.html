@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="Windows-1252">
+    <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API路径测试工具</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: #fafafa;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 0;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"], input[type="password"], textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .tab-container {
+            margin-top: 20px;
+        }
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 15px;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            margin-right: 5px;
+            border-radius: 4px 4px 0 0;
+            transition: background-color 0.3s;
+        }
+        .tab.active {
+            background-color: white;
+            font-weight: bold;
+        }
+        .tab-content {
+            display: none;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            background-color: white;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        pre {
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            border: 1px solid #eee;
+            max-height: 300px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .debug-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .debug-item {
+            margin-bottom: 10px;
+        }
+        .debug-label {
+            font-weight: bold;
+            color: #555;
+        }
+        .tip {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #2196f3;
+            margin-top: 20px;
+        }
+        .tip-title {
+            font-weight: bold;
+            color: #1976d2;
+            margin-bottom: 5px;
+        }
+        .api-test-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .api-test-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .api-test-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>API路径测试工具</h1>
+    <div class="container">
+        <!-- 登录API测试 -->
+        <div class="test-section">
+            <h2>登录API路径测试</h2>
+            <div class="form-group">
+                <label for="loginApiUrl">API URL:</label>
+                <input type="text" id="loginApiUrl" value="https://www.rsv.ee/api/v2/account/login" placeholder="输入登录API的URL">
+            </div>
+            <div class="form-group">
+                <label for="loginAccount">账号/邮箱:</label>
+                <input type="text" id="loginAccount" placeholder="测试账号或邮箱">
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">密码:</label>
+                <input type="password" id="loginPassword" placeholder="测试密码">
+            </div>
+            <button onclick="testLoginApi()">测试登录API</button>
+            
+            <div class="tab-container">
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('login-request', this)">请求</div>
+                    <div class="tab" onclick="switchTab('login-response', this)">响应</div>
+                    <div class="tab" onclick="switchTab('login-debug', this)">调试信息</div>
+                </div>
+                <div id="login-request" class="tab-content active">
+                    <pre id="loginRequestContent">请求尚未发送</pre>
+                </div>
+                <div id="login-response" class="tab-content">
+                    <pre id="loginResponseContent">响应尚未接收</pre>
+                </div>
+                <div id="login-debug" class="tab-content">
+                    <pre id="loginDebugInfo">调试信息尚未生成</pre>
+                </div>
+            </div>
+            
+            <div id="loginResult" class="result"></div>
+        </div>
+        
+        <!-- 注册API测试 -->
+        <div class="test-section">
+            <h2>注册API路径测试</h2>
+            <div class="form-group">
+                <label for="signupApiUrl">API URL:</label>
+                <input type="text" id="signupApiUrl" value="https://www.rsv.ee/api/v2/account/signup" placeholder="输入注册API的URL">
+            </div>
+            <div class="form-group">
+                <label for="signupAccount">账号:</label>
+                <input type="text" id="signupAccount" placeholder="测试账号">
+            </div>
+            <div class="form-group">
+                <label for="signupEmail">邮箱:</label>
+                <input type="text" id="signupEmail" placeholder="测试邮箱">
+            </div>
+            <div class="form-group">
+                <label for="signupPassword">密码:</label>
+                <input type="password" id="signupPassword" placeholder="测试密码">
+            </div>
+            <button onclick="testSignupApi()">测试注册API</button>
+            
+            <div class="tab-container">
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab('signup-request', this)">请求</div>
+                    <div class="tab" onclick="switchTab('signup-response', this)">响应</div>
+                    <div class="tab" onclick="switchTab('signup-debug', this)">调试信息</div>
+                </div>
+                <div id="signup-request" class="tab-content active">
+                    <pre id="signupRequestContent">请求尚未发送</pre>
+                </div>
+                <div id="signup-response" class="tab-content">
+                    <pre id="signupResponseContent">响应尚未接收</pre>
+                </div>
+                <div id="signup-debug" class="tab-content">
+                    <pre id="signupDebugInfo">调试信息尚未生成</pre>
+                </div>
+            </div>
+            
+            <div id="signupResult" class="result"></div>
+        </div>
+        
+        <!-- 调试提示 -->
+        <div class="tip">
+            <div class="tip-title">常见问题排查提示:</div>
+            <ul>
+                <li>如果收到"Unexpected token < in JSON at position 0"错误，通常表示API返回了HTML内容而非JSON。</li>
+                <li>请检查API URL路径是否正确，确保路径中包含"account"部分（如/api/v2/account/login）。</li>
+                <li>检查服务器是否在线，网络连接是否正常。</li>
+                <li>确认API是否需要特殊的请求头或认证信息。</li>
+                <li>查看响应中的HTML内容，可能包含错误信息或重定向提示。</li>
+            </ul>
+        </div>
+        
+        <!-- 其他测试工具链接 -->
+        <div class="api-test-link">
+            <p>需要更全面的系统测试？请使用 <a href="api_test.php">API系统测试工具</a></p>
+        </div>
+    </div>
+    
+    <script>
+        // 切换标签页
+        function switchTab(tabId, tabElement) {
+            // 隐藏所有内容
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // 移除所有标签的active状态
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // 显示选中的内容和标签
+            document.getElementById(tabId).classList.add('active');
+            tabElement.classList.add('active');
+        }
+        
+        // 格式化JSON
+        function formatJson(jsonString) {
+            try {
+                const obj = JSON.parse(jsonString);
+                return JSON.stringify(obj, null, 2);
+            } catch (e) {
+                return jsonString; // 如果不是有效的JSON，返回原始字符串
+            }
+        }
+        
+        // 显示结果
+        function showResult(elementId, type, message) {
+            const resultElement = document.getElementById(elementId);
+            resultElement.className = 'result ' + type;
+            resultElement.innerText = message;
+        }
+        
+        // 检查HTML标签
+        function containsHtml(text) {
+            return /<[^>]*>/.test(text);
+        }
+        
+        // 测试登录API
+        function testLoginApi() {
+            const url = document.getElementById('loginApiUrl').value;
+            const account = document.getElementById('loginAccount').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // 输入验证
+            if (!url || !account || !password) {
+                showResult('loginResult', 'error', '请填写完整的URL、账号和密码');
+                return;
+            }
+            
+            // 构建请求数据
+            const loginType = account.includes('@') ? '1' : '2';
+            const data = {
+                account: account,
+                passwd: password,
+                login_type: loginType
+            };
+            
+            // 显示请求信息
+            const requestInfo = {
+                url: url,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=Windows-1252',
+                    'Accept-Charset': 'Windows-1252'
+                },
+                body: data
+            };
+            document.getElementById('loginRequestContent').innerText = JSON.stringify(requestInfo, null, 2);
+            
+            // 清空之前的响应和调试信息
+            document.getElementById('loginResponseContent').innerText = '正在请求...';
+            document.getElementById('loginDebugInfo').innerText = '正在生成调试信息...';
+            
+            // 记录开始时间
+            const startTime = performance.now();
+            
+            // 发送请求
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                // 记录结束时间
+                const endTime = performance.now();
+                const responseTime = endTime - startTime;
+                
+                // 获取响应头信息
+                const headers = {};
+                response.headers.forEach((value, key) => {
+                    headers[key] = value;
+                });
+                
+                // 记录调试信息
+                const debugInfo = {
+                    status: response.status,
+                    statusText: response.statusText,
+                    headers: headers,
+                    responseTime: responseTime.toFixed(2) + ' ms',
+                    url: url
+                };
+                
+                // 获取原始响应文本
+                return response.text().then(text => {
+                    return { text, debugInfo };
+                });
+            })
+            .then(({ text, debugInfo }) => {
+                // 显示响应信息
+                document.getElementById('loginResponseContent').innerText = text;
+                document.getElementById('loginDebugInfo').innerText = JSON.stringify(debugInfo, null, 2);
+                
+                // 检查是否是HTML响应
+                if (containsHtml(text)) {
+                    showResult('loginResult', 'error', 'API返回了HTML内容而非预期的JSON数据。这通常意味着请求的API路径可能不正确。');
+                    
+                    // 尝试提取HTML标题
+                    const match = text.match(/<title>(.*?)<\/title>/i);
+                    if (match && match[1]) {
+                        document.getElementById('loginDebugInfo').innerText += '\n\nHTML标题: ' + match[1];
+                    }
+                } else {
+                    try {
+                        // 尝试解析JSON
+                        const jsonData = JSON.parse(text);
+                        document.getElementById('loginResponseContent').innerText = JSON.stringify(jsonData, null, 2);
+                        
+                        // 根据响应内容显示结果
+                        if (jsonData.code === 200 && jsonData.msg === 'ok') {
+                            showResult('loginResult', 'success', 'API调用成功！路径正确。');
+                        } else {
+                            const errorMsg = jsonData.result && jsonData.result.reason ? jsonData.result.reason : 'API调用返回错误';
+                            showResult('loginResult', 'warning', 'API路径正确，但返回了错误信息: ' + errorMsg);
+                        }
+                    } catch (e) {
+                        showResult('loginResult', 'error', 'API返回了非JSON格式的数据。错误信息: ' + e.message);
+                    }
+                }
+            })
+            .catch(error => {
+                showResult('loginResult', 'error', '请求失败: ' + error.message);
+                document.getElementById('loginResponseContent').innerText = '请求失败: ' + error.message;
+                document.getElementById('loginDebugInfo').innerText = '错误详情: ' + JSON.stringify(error, Object.getOwnPropertyNames(error), 2);
+            });
+        }
+        
+        // 测试注册API
+        function testSignupApi() {
+            const url = document.getElementById('signupApiUrl').value;
+            const account = document.getElementById('signupAccount').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            
+            // 输入验证
+            if (!url || !account || !email || !password) {
+                showResult('signupResult', 'error', '请填写完整的URL、账号、邮箱和密码');
+                return;
+            }
+            
+            // 构建请求数据
+            const data = {
+                account: account,
+                mail: email,
+                passwd: password
+            };
+            
+            // 显示请求信息
+            const requestInfo = {
+                url: url,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=Windows-1252',
+                    'Accept-Charset': 'Windows-1252'
+                },
+                body: data
+            };
+            document.getElementById('signupRequestContent').innerText = JSON.stringify(requestInfo, null, 2);
+            
+            // 清空之前的响应和调试信息
+            document.getElementById('signupResponseContent').innerText = '正在请求...';
+            document.getElementById('signupDebugInfo').innerText = '正在生成调试信息...';
+            
+            // 记录开始时间
+            const startTime = performance.now();
+            
+            // 发送请求
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                // 记录结束时间
+                const endTime = performance.now();
+                const responseTime = endTime - startTime;
+                
+                // 获取响应头信息
+                const headers = {};
+                response.headers.forEach((value, key) => {
+                    headers[key] = value;
+                });
+                
+                // 记录调试信息
+                const debugInfo = {
+                    status: response.status,
+                    statusText: response.statusText,
+                    headers: headers,
+                    responseTime: responseTime.toFixed(2) + ' ms',
+                    url: url
+                };
+                
+                // 获取原始响应文本
+                return response.text().then(text => {
+                    return { text, debugInfo };
+                });
+            })
+            .then(({ text, debugInfo }) => {
+                // 显示响应信息
+                document.getElementById('signupResponseContent').innerText = text;
+                document.getElementById('signupDebugInfo').innerText = JSON.stringify(debugInfo, null, 2);
+                
+                // 检查是否是HTML响应
+                if (containsHtml(text)) {
+                    showResult('signupResult', 'error', 'API返回了HTML内容而非预期的JSON数据。这通常意味着请求的API路径可能不正确。');
+                    
+                    // 尝试提取HTML标题
+                    const match = text.match(/<title>(.*?)<\/title>/i);
+                    if (match && match[1]) {
+                        document.getElementById('signupDebugInfo').innerText += '\n\nHTML标题: ' + match[1];
+                    }
+                } else {
+                    try {
+                        // 尝试解析JSON
+                        const jsonData = JSON.parse(text);
+                        document.getElementById('signupResponseContent').innerText = JSON.stringify(jsonData, null, 2);
+                        
+                        // 根据响应内容显示结果
+                        if (jsonData.code === 200 && jsonData.msg === 'ok') {
+                            showResult('signupResult', 'success', 'API调用成功！路径正确。');
+                        } else {
+                            const errorMsg = jsonData.result && jsonData.result.reason ? jsonData.result.reason : 'API调用返回错误';
+                            showResult('signupResult', 'warning', 'API路径正确，但返回了错误信息: ' + errorMsg);
+                        }
+                    } catch (e) {
+                        showResult('signupResult', 'error', 'API返回了非JSON格式的数据。错误信息: ' + e.message);
+                    }
+                }
+            })
+            .catch(error => {
+                showResult('signupResult', 'error', '请求失败: ' + error.message);
+                document.getElementById('signupResponseContent').innerText = '请求失败: ' + error.message;
+                document.getElementById('signupDebugInfo').innerText = '错误详情: ' + JSON.stringify(error, Object.getOwnPropertyNames(error), 2);
+            });
+        }
+    </script>
+</body>
+</html>

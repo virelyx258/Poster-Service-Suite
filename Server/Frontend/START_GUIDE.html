@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poster系统启动指南</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #4CAF50;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2196F3;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .step-number {
+            background-color: #2196F3;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-block;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+        }
+        .troubleshooting {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .tool-link {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .tool-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Poster系统启动指南</h1>
+    
+    <p>这个指南将帮助您正确运行Poster登录注册系统。系统包含以下文件：</p>
+    <ul>
+        <li><strong>index.php</strong> - 前端页面，包含登录和注册表单</li>
+        <li><strong>api_handler.php</strong> - 后端API处理文件</li>
+        <li><strong>README.md</strong> - 项目说明文档</li>
+        <li><strong>START_GUIDE.html</strong> - 本启动指南</li>
+    </ul>
+    
+    <div class="note">
+        <strong>注意：</strong>在使用之前，请确保您的计算机上已安装PHP环境。
+    </div>
+    
+    <h2>步骤1：安装PHP</h2>
+    <div class="step">
+        <span class="step-number">1</span>访问 <a href="https://www.php.net/downloads" class="tool-link" target="_blank">PHP官方网站</a> 下载适合您操作系统的PHP版本。
+    </div>
+    <div class="step">
+        <span class="step-number">2</span>按照安装向导完成PHP的安装。
+    </div>
+    <div class="step">
+        <span class="step-number">3</span>安装完成后，将PHP安装目录添加到系统环境变量中。
+    </div>
+    
+    <h2>步骤2：验证PHP安装</h2>
+    <div class="step">
+        <span class="step-number">1</span>打开命令提示符（Windows）或终端（macOS/Linux）。
+    </div>
+    <div class="step">
+        <span class="step-number">2</span>输入以下命令并按回车：
+        <pre>php -v</pre>
+        如果显示PHP版本信息，说明安装成功。
+    </div>
+    
+    <h2>步骤3：启动PHP内置服务器</h2>
+    <div class="step">
+        <span class="step-number">1</span>在命令提示符或终端中，导航到Poster系统所在的目录：
+        <pre>cd c:\Users\hi\Desktop\Poster_Web</pre>
+    </div>
+    <div class="step">
+        <span class="step-number">2</span>启动PHP内置服务器：
+        <pre>php -S localhost:8000</pre>
+        成功启动后，您将看到类似以下的输出：
+        <pre>PHP 版本信息 Development Server (http://localhost:8000) started</pre>
+    </div>
+    
+    <h2>步骤4：访问系统</h2>
+    <div class="step">
+        <span class="step-number">1</span>打开浏览器。
+    </div>
+    <div class="step">
+        <span class="step-number">2</span>在地址栏输入以下URL并按回车：
+        <pre>http://localhost:8000</pre>
+        您将看到Poster登录注册系统的界面。
+    </div>
+    
+    <h2>测试模式说明</h2>
+    <div class="note">
+        <p>由于邮件发送功能可能受到网络或SMTP服务器配置的限制，当前系统使用了测试模式：</p>
+        <ul>
+            <li>在注册页面，您可以输入任意有效的邮箱地址</li>
+            <li>对于验证码，直接输入 <code>123456</code> 即可通过验证</li>
+        </ul>
+    </div>
+    
+    <h2>常见问题排查</h2>
+    <div class="troubleshooting">
+        <h3>问题1：启动服务器时提示"php不是内部或外部命令"</h3>
+        <p>解决方法：检查PHP是否正确安装，以及是否已添加到系统环境变量中。</p>
+        
+        <h3>问题2：登录时返回undefined或网络错误</h3>
+        <p>解决方法：
+            <ol>
+                <li>打开浏览器的开发者工具（按F12）</li>
+                <li>切换到"控制台"（Console）选项卡</li>
+                <li>再次尝试登录，查看控制台中的错误信息</li>
+                <li>检查api_log.txt文件，查看详细的请求和响应日志</li>
+            </ol>
+        </p>
+        
+        <h3>问题3：无法连接到远程API服务器</h3>
+        <p>解决方法：检查您的网络连接，确保可以访问 <code>https://www.rsv.ee</code> 网站。</p>
+    </div>
+    
+    <h2>日志文件说明</h2>
+    <p>系统会生成以下日志文件，帮助排查问题：</p>
+    <ul>
+        <li><strong>api_log.txt</strong> - 记录所有API请求和响应信息</li>
+        <li><strong>raw_input.txt</strong> - 记录原始的请求输入数据</li>
+        <li><strong>email_log.txt</strong> - 记录邮件发送相关的日志（如果启用）</li>
+    </ul>
+</body>
+</html>

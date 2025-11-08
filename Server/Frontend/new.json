@@ -1,0 +1,25 @@
+// 申请隧道POST格式
+{
+  "name": "abcdefg",// 指令名称
+  "device": "abcdefg",//设备名称
+  "czlx": "shutdown",// 操作类型，包括四个指令："shutdown","reboot","run","kill"
+  "fjtj": ""//附加条件，如果操作类型是run或kill，则需要输入附加条件。
+}
+// 申请成功返回格式
+{
+  "code": 200,
+  "msg": "ok",
+  "result": {
+    "name": "name"
+  },
+  "timestamp": "1756599133398"
+}
+// 错误返回格式
+{
+  "code": 500,
+  "msg": "error",
+  "result": {
+    "reason": "错误原因"
+  },
+  "timestamp": "1756599133398"
+}
